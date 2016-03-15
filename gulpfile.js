@@ -5,27 +5,37 @@ const del = require('del');
 const gulp = require('gulp');
 const manifest = require('./package.json');
 const path = require('path');
+const fs = require('fs');
 
 const coverageDir = path.join(__dirname, 'coverage');
-const docsDir = path.join(__dirname, 'docs');
-const module_name = 'ti.superagent.js';
-const combined = path.join(__dirname, module_name);
+const distDir = path.join(__dirname, 'dist');
+const docsDir = path.join(__dirname, 'documentation');
+const stagingDir = path.join(__dirname, 'staging');
+let version;
 
 /*
  * Clean tasks
  */
-gulp.task('clean', ['clean-coverage', 'clean-dist', 'clean-docs']);
+gulp.task('clean', ['clean-coverage', 'clean-dist', 'clean-docs', 'clean-staging', 'clean-zip']);
 
 gulp.task('clean-coverage', function (done) {
 	del([coverageDir]).then(function () { done(); });
 });
 
 gulp.task('clean-dist', function (done) {
-	del([module_name + '*']).then(function () { done(); });
+	del([distDir]).then(function () { done(); });
 });
 
 gulp.task('clean-docs', function (done) {
 	del([docsDir]).then(function () { done(); });
+});
+
+gulp.task('clean-staging', function (done) {
+	del([stagingDir]).then(function () { done(); });
+});
+
+gulp.task('clean-zip', function (done) {
+	del(['*.zip']).then(function () { done(); });
 });
 
 /*
@@ -41,8 +51,22 @@ gulp.task('build', ['clean-dist', 'lint-src'], function () {
 			sourceMap: true
 		}))
 		.pipe($.babel())
-		.pipe($.rename(module_name))
+		.pipe($.rename('ti.superagent.js'))
 		.pipe($.sourcemaps.write('.'))
+		.pipe(gulp.dest(distDir));
+});
+
+gulp.task('prep', ['build', 'docs'], function () {
+	var packageJSON = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json')));
+	version = packageJSON && packageJSON.version;
+
+	return gulp.src(['dist/ti.superagent.js', 'package.json', 'manifest', 'LICENSE', 'documentation/**/*'])
+		.pipe(gulp.dest(path.join(__dirname, 'staging', 'modules', 'commonjs', 'ti.superagent', version)));
+});
+
+gulp.task('dist', ['prep'], function () {
+	return gulp.src('staging/**/*')
+		.pipe($.zip('ti.superagent-commonjs-' + version + '.zip'))
 		.pipe(gulp.dest(__dirname));
 });
 

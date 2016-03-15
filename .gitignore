@@ -1,7 +1,10 @@
 ._*
 .DS_Store*
 coverage
-docs
+documentation
+dist
+staging
+*.zip
 node_modules
 npm-debug.log
 *.map

@@ -1,35 +1,31 @@
-# PROJECT_NAME
+# ti.superagent
 
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
 [![Travis CI Build][travis-image]][travis-url]
-[![Deps][david-image]][david-url]
-[![Dev Deps][david-dev-image]][david-dev-url]
 
 ## Installation
 
-    npm install PACKAGE_NAME
+    npm install ti.superagent
 
-## Examples
+## Build
 
-```javascript
-// example goes here
-```
+    git clone git@github.com:appcelerator-modules/ti.superagent.git
+    cd ti.superagent
+    npm install
 
 ## Reporting Bugs or Submitting Fixes
 
 If you run into problems, and trust us, there are likely plenty of them at this
-point -- please create an [Issue](https://github.com/appcelerator/REPO_NAME/issues)
+point -- please create an [Issue](https://github.com/appcelerator-modules/ti.superagent/issues)
 or, even better, send us a pull request.
 
 ## Contributing
 
-PACKAGE_NAME is an open source project. PACKAGE_NAME wouldn't be where it is now without
-contributions by the community. Please consider forking PACKAGE_NAME to improve,
+ti.superagent is an open source project. ti.superagent wouldn't be where it is now without
+contributions by the community. Please consider forking ti.superagent to improve,
 enhance or fix issues. If you feel like the community will benefit from your
 fork, please open a pull request.
 
-To protect the interests of the PACKAGE_NAME contributors, Appcelerator, customers
+To protect the interests of the ti.superagent contributors, Appcelerator, customers
 and end users we require contributors to sign a Contributors License Agreement
 (CLA) before we pull the changes into the main repository. Our CLA is simple and
 straightforward - it requires that the contributions you make to any
@@ -51,13 +47,5 @@ details on the license. Also, please take notice of the privacy notice at the en
 
 (C) Copyright 2016, [Appcelerator, Inc](http://www.appcelerator.com) All Rights Reserved.
 
-[npm-image]: https://img.shields.io/npm/v/PACKAGE_NAME.svg
-[npm-url]: https://npmjs.org/package/PACKAGE_NAME
-[downloads-image]: https://img.shields.io/npm/dm/PACKAGE_NAME.svg
-[downloads-url]: https://npmjs.org/package/PACKAGE_NAME
-[travis-image]: https://img.shields.io/travis/appcelerator/PACKAGE_NAME.svg
-[travis-url]: https://travis-ci.org/appcelerator/PACKAGE_NAME
-[david-image]: https://img.shields.io/david/appcelerator/PACKAGE_NAME.svg
-[david-url]: https://david-dm.org/appcelerator/PACKAGE_NAME
-[david-dev-image]: https://img.shields.io/david/dev/appcelerator/PACKAGE_NAME.svg
-[david-dev-url]: https://david-dm.org/appcelerator/PACKAGE_NAME#info=devDependencies
+[travis-image]: https://img.shields.io/travis/appcelerator/ti.superagent.svg
+[travis-url]: https://travis-ci.org/appcelerator/ti.superagent

@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "build": "gulp build",
+    "dist": "gulp dist",
     "coverage": "gulp coverage",
     "docs": "gulp docs",
     "prepublish": "gulp build",
@@ -52,6 +53,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-rollup": "^1.7.0",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-zip": "^3.2.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0"
   },

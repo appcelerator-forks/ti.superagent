@@ -5,13 +5,11 @@ const del = require('del');
 const gulp = require('gulp');
 const manifest = require('./package.json');
 const path = require('path');
-const fs = require('fs');
 
 const coverageDir = path.join(__dirname, 'coverage');
 const distDir = path.join(__dirname, 'dist');
 const docsDir = path.join(__dirname, 'documentation');
 const stagingDir = path.join(__dirname, 'staging');
-let version;
 
 /*
  * Clean tasks
@@ -51,22 +49,20 @@ gulp.task('build', ['clean-dist', 'lint-src'], function () {
 			sourceMap: true
 		}))
 		.pipe($.babel())
-		.pipe($.rename('ti.superagent.js'))
+		.pipe($.rename(manifest.name + '.js'))
 		.pipe($.sourcemaps.write('.'))
 		.pipe(gulp.dest(distDir));
 });
 
 gulp.task('prep', ['build', 'docs'], function () {
-	var packageJSON = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json')));
-	version = packageJSON && packageJSON.version;
-
-	return gulp.src(['dist/ti.superagent.js', 'package.json', 'manifest', 'LICENSE', 'documentation/**/*'])
-		.pipe(gulp.dest(path.join(__dirname, 'staging', 'modules', 'commonjs', 'ti.superagent', version)));
+	// TODO Include documentation!
+	return gulp.src(['dist/' + manifest.name + '.js', 'package.json', 'manifest', 'LICENSE'])
+		.pipe(gulp.dest(path.join(__dirname, 'staging', 'modules', 'commonjs', manifest.name, manifest.version)));
 });
 
 gulp.task('dist', ['prep'], function () {
 	return gulp.src('staging/**/*')
-		.pipe($.zip('ti.superagent-commonjs-' + version + '.zip'))
+		.pipe($.zip(manifest.name + '-commonjs-' + manifest.version + '.zip'))
 		.pipe(gulp.dest(__dirname));
 });
 

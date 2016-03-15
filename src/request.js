@@ -255,7 +255,7 @@ Request.prototype.withCredentials = function() {
  * @api public
  */
 Request.prototype.validatesSecureCertificate = function(value) {
-	this._validatesSecureCertificate = value || true;
+	this._validatesSecureCertificate = value;
 	return this;
 };
 
@@ -310,10 +310,14 @@ Request.prototype.end = function(fn) {
 	};
 
 	xhr.onerror = function (e) {
-		let err = e.error,
+		let err,
 			response;
+
 		try {
 			response = new Response(self);
+			err = new Error(e.error || response.statusText || 'Unsuccessful HTTP response'),
+			err.response = response;
+			err.status = response.status;
 		} catch(e) {
 			err = new Error('Parser is unable to parse the response');
 			err.parse = true;
@@ -344,7 +348,7 @@ Request.prototype.end = function(fn) {
 	}
 
 	// Validate Cert?
-	if (this._validatesSecureCertificate) xhr.validatesSecureCertificate = this._validatesSecureCertificate;
+	xhr.validatesSecureCertificate = !!this._validatesSecureCertificate;
 
 	// CORS
 	if (this._withCredentials) xhr.withCredentials = true;

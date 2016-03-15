@@ -247,6 +247,19 @@ Request.prototype.withCredentials = function() {
 };
 
 /**
+ * Sets whether we validate the server certificate. May want to set to 'false'
+ * when testing with servers using self-signed certificates.
+ *
+ * @param {Boolean} value
+ * @return {Request} for chaining
+ * @api public
+ */
+Request.prototype.validatesSecureCertificate = function(value) {
+	this._validatesSecureCertificate = value || true;
+	return this;
+};
+
+/**
  * Initiate request, invoking callback `fn(res)`
  * with an instanceof `Response`.
  *
@@ -329,6 +342,9 @@ Request.prototype.end = function(fn) {
 		xhr.username = this.username;
 		xhr.password = this.password;
 	}
+
+	// Validate Cert?
+	if (this._validatesSecureCertificate) xhr.validatesSecureCertificate = this._validatesSecureCertificate;
 
 	// CORS
 	if (this._withCredentials) xhr.withCredentials = true;
